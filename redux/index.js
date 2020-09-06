@@ -1,9 +1,25 @@
-import redux, {createStore} from "redux"
+import redux, {createStore,applyMiddleware} from "redux"
+import thunk from "redux-thunk"
 
-export function increment() {
+/*export function increment() {
     return {
         type: "INCREMENT"
     }
+}
+*/
+// thunk function 
+export function increment() {
+  return(dispatch,getState) => {
+    const currentCount=getState()
+    if(currentCount % 2 ==0){
+      dispatch({type: "INCREMENT"})
+    }else {
+      setTimeout(() => {
+      dispatch({type: "INCREMENT"})
+    },1500)
+  }
+    }
+   
 }
 
 export function decrement() {
@@ -23,6 +39,8 @@ function reducer(count = 0, action) {
     }
 }
 
-const store = createStore(reducer)
+//const store = createStore(reducer)
+//essentially a redux way of pluging in think capabilities.
+const store = createStore(reducer,applyMiddleware(thunk))
 store.subscribe(() => console.log(store.getState()))
 export default store
