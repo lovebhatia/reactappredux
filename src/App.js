@@ -1,15 +1,18 @@
 import React from "react";
 import {connect} from "react-redux"
+import {useSelector,useDispatch} from "react-redux"
 import "./style.css";
 import {increment,decrement} from "../redux"
 
 
-function App(props) {    
+function App(props) {  
+  const count=useSelector(state => state)
+  const dispatch=useDispatch()
     return (
         <div>
-            <h1>{props.count} </h1>
-            <button onClick={props.increment}>-</button>
-            <button onClick={props.decrement}>+</button>
+            <h1>{count} </h1>
+            <button onClick={() => dispatch(decrement())}>-</button>
+            <button onClick={() => dispatch(increment())}>+</button>
         </div>
     )
 }
@@ -39,7 +42,9 @@ const mapDispatchToProps = {
 
 
 //export default connect(mapStateToProps,mapDispatchToProps)(App)
-export default connect(state => ({count: state}),{increment,decrement})(App)
+//export default connect(state => ({count: state}),{increment,decrement})(App)
+
+export default App
 
 
 //connect is a function and it returns a function to which we pass our component
