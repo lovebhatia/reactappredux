@@ -58,7 +58,7 @@ function reducer(count = 0, action) {
 }
 
 //const store = createStore(reducer)
-//essentially a redux way of pluging in think capabilities.
+//essentially a redux way of pluging in thunk capabilities.
 const store = createStore(reducer,applyMiddleware(thunk))
 store.subscribe(() => console.log(store.getState()))
 export default store
